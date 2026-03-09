@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symbols</title>
+  <script>navigator.serviceWorker.register("service-worker.js")</script>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="s"></div>
+  <main class="col">
+    <div class="head">
+      <h1>Maths <span class="ponk">Symbol</span> List</h1>
+      <div class="row">
+        <input type="search" id="search-symbols">
+        <button type="button" id="search-btn" onclick="return false;">Search</button>
+      </div><br><br>
+    </div>
+    <div id="results">
+      <span class="placeholder">Search for a symbol...</span>
+    </div>
+  </main>
+  <div class="s"></div>
+  <script src="sizer.js" defer></script>
+  <script src="redirect.js"></script>
+  <script src="searcher.js" type="module"></script>
+</body>
+
+</html>

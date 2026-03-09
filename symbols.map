@@ -1,0 +1,109 @@
+Alpha : a -> α
+Alpha : a -> Α
+Beta : b, ss -> β
+Beta : b -> Β
+Gamma : g -> γ
+Gamma : g -> ɣ
+Delta : d, change -> δ
+Delta : d, change -> Δ
+Epsilon : e, infinitesimal -> ε
+Epsilon : e -> Ε
+Iota : i -> ι
+Iota : i -> Ι
+Omicron : o -> ο
+Omicron : o -> ο
+Omega : o -> ω
+Omega : o -> Ω
+Lambda : l -> λ
+Lambda : l -> Λ
+Kappa : k -> κ
+Kappa : k -> Κ
+Phi : ph, golden ratio, 1.6180339887498948482045868 -> ɸ
+Phi : ph -> Φ
+Psi : ps -> ψ
+Psi : ps -> Ψ
+Pi : p, product -> Π
+Pi : p, 3.1415926535897932384626433 -> π
+Rho : r -> ρ
+Rho : R -> Ρ
+Upsilon : u, y -> υ
+Upsilon : u, y -> Υ
+Nu : n -> ν
+Nu : n -> Ν
+Theta : t -> θ
+Theta : t -> ϑ
+Sigma : s -> σ
+Sigma : s -> Σ
+Final Sigma : s -> ς
+Tau : t, 2pi -> τ
+Chi : c -> χ
+Chi : c -> Χ
+Xi : x, everything -> ξ
+Xi : x -> Ξ
+Zeta : z -> ς
+Zeta : z -> Ζ
+
+e : 2.7182818284590452353602874 -> e
+
+Function : f -> ƒ
+
+N (Double-Struck) : naturals, N -> ℕ
+Z (Double-Struck) : integers, Z -> ℤ
+Q (Double-Struck) : rationals, Q -> ℚ
+R (Double-Struck) : reals, R -> ℝ
+C (Double-Struck) : complex, C -> ℂ
+
+Not Equal To : neq, != -> ≠
+Approximately : ~= -> ≈
+Less Than or Equal To : leq, <= -> ≤
+Greater Than or Equal To : geq, >= -> ≥
+Identical To : =, identity, equivalent -> ≡
+Isomorphic To : approx, similar, congruent -> ≅
+Minus-Or-Plus : +, - -> ∓
+Plus-Or-Minus : +, - -> ±
+Dot : bullet, dot product, times -> ∙
+Multiplication : times, x, * -> ×
+Division : divide, / -> ÷
+
+Circled Plus : o+, xor, direct sum -> ⊕
+Circled Times : ox -> ⊗
+
+Degrees :-> °
+Complement : c -> ∁
+
+Square Root : sqrt -> √
+
+Top : true, tautology, truth, verum -> ⊤
+Bottom : false, falsity, contradiction, falsum -> ⊥
+For All : every, forall, foreach -> ∀
+There Exists : some -> ∃
+Logical Not :-> ¬
+Logical Or : disjunction -> ∨
+Logical And : conjunction -> ∧
+Logical Xor : exclusive disjunction -> ⊻
+Implication : implies, => -> ⇒
+Reverse Implication : implied by, <= -> ⇐
+Two-Way Implication : iff, if and only if, <=> -> ⇔
+Models : double turnstile, entails, satisfies, semantic consequence -> ⊨
+Proves : turnstile, entails, syntactic consequence -> ⊢
+
+Therefore : :., .: -> ∴
+Because :-> ∵
+
+Minus (Superscript) : overline, bar, negative -> ⁻
+Plus (Superscript) : positive -> ⁺
+Minus (Subscript) : negative -> ₋
+Plus (Subscript) : positive -> ₊
+Overline :-> ̄
+Double Dot : .. -> ̈
+Prime : ' -> ′
+
+Infinity :-> ∞
+Summation :-> ∑
+Product :-> ∏
+Integral : sum -> ∫
+Partial Derivative : d -> ∂
+
+Em Dash :-> —
+2-Em Dash :-> ⸺
+3-Em Dash :-> ⸻
