@@ -56,7 +56,7 @@ R (Double-Struck) : reals, R -> ℝ
 C (Double-Struck) : complex, C -> ℂ
 
 Not Equal To : neq, != -> ≠
-Approximately : ~= -> ≈
+Approximately : ~=, almost equal -> ≈
 Less Than or Equal To : leq, <= -> ≤
 Greater Than or Equal To : geq, >= -> ≥
 Identical To : =, identity, equivalent -> ≡
@@ -75,8 +75,8 @@ Complement : c -> ∁
 
 Square Root : sqrt -> √
 
-Top : true, tautology, truth, verum -> ⊤
-Bottom : false, falsity, contradiction, falsum -> ⊥
+Top : true, tautology, truth, verum, tee -> ⊤
+Bottom : false, falsity, contradiction, falsum, up tack, perpendicular -> ⊥
 For All : every, forall, foreach -> ∀
 There Exists : some -> ∃
 Logical Not :-> ¬
@@ -88,6 +88,8 @@ Reverse Implication : implied by, <= -> ⇐
 Two-Way Implication : iff, if and only if, <=> -> ⇔
 Models : double turnstile, entails, satisfies, semantic consequence -> ⊨
 Proves : turnstile, entails, syntactic consequence -> ⊢
+
+Independent : double up tack -> ⫫
 
 Therefore : :., .: -> ∴
 Because :-> ∵
