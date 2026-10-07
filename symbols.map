@@ -105,4 +105,5 @@ Prime : ' -> ′
 Summation :-> ∑
 Product :-> ∏
 Integral : sum -> ∫
+Closed Integral : circled integral -> ∮
 Partial Derivative : d -> ∂
