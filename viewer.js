@@ -58,8 +58,6 @@ function view(sym) {
         rels.append(grp, document.createElement("hr"));
       }
     }
-  } else {
-    window.location.href = "./index.html";
   }
 }
 
