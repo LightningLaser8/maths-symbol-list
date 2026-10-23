@@ -23,7 +23,7 @@ Phi : ph, golden ratio, 1.6180339887498948482045868 -> ɸ
 Phi : ph -> Φ
 Psi : ps -> ψ
 Psi : ps -> Ψ
-Pi : p, product -> Π
+Pi : p -> Π
 Pi : p, 3.1415926535897932384626433 -> π
 Rho : r -> ρ
 Rho : R -> Ρ
@@ -31,6 +31,8 @@ Upsilon : u, y -> υ
 Upsilon : u, y -> Υ
 Nu : n -> ν
 Nu : n -> Ν
+Mu : m -> μ
+Mu : M -> Μ
 Theta : t -> θ
 Theta : t -> ϑ
 Sigma : s -> σ
@@ -107,3 +109,19 @@ Product :-> ∏
 Integral : sum -> ∫
 Closed Integral : circled integral -> ∮
 Partial Derivative : d -> ∂
+Del : nabla, gradient -> ∇
+
+Subset :-> ⊆
+Proper Subset :-> ⊂
+Not Subset :-> ⊄
+Superset :-> ⊇
+Proper Superset :-> ⊃
+Not Superset :-> ⊅
+Element Of : in -> ∈
+Not Element Of : not in -> ∉
+Contains :-> ∋
+Does Not Contain :-> ∌
+Empty Set : nothing -> ∅
+Intersection : and -> ∩
+Union : or -> ∪
+Set Difference : without, except, not -> ∖
