@@ -8,7 +8,7 @@
   "lang": "en-gb",
   "dir": "auto",
   "theme_color": "#dc3545ff",
-  "background_color": "#000000",
+  "background_color": "#ffffff",
   "orientation": "any",
   "icons": [
     { "src": "delta.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable" },
@@ -29,6 +29,6 @@
   ],
   "protocol_handlers": [{
     "protocol": "web+sym",
-    "url": "index.html?sym=%s"
+    "url": "index.html?symbol=%s"
   }]
 }

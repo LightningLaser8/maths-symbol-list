@@ -1,17 +1,13 @@
 import { groups } from "./groups.js";
 import { symbols } from "./syms.js";
-const search = new URLSearchParams(window.location.search);
-const actualSym = search.get("s");
-const symname = search.get("sym");
-
 const symame = document.getElementById("symbol-name");
 const bigsym = document.getElementById("large-symbol");
 const symholder = document.getElementById("symbol");
 const tags = document.getElementById("symbol-tags");
 const rels = document.getElementById("related-syms");
 
-/**@param {typeof symbols[0]} sym  */
-function view(sym) {
+/**@param {typeof symbols extends Map<*, infer T> ? T : never} sym @param {string} id  */
+function view(id, sym) {
   if (sym) {
     document.title = `Symbol Viewer - ${sym.name}`;
     symame.textContent = sym.name;
@@ -21,7 +17,7 @@ function view(sym) {
     if (sym.tags.length > 1) {
       const sname = sym.name.toLowerCase();
       for (const t of sym.tags) {
-        if(t === sname) continue
+        if (t === sname) continue;
         const container = document.createElement("span");
         container.classList.add("symbol-aka");
         container.textContent = t;
@@ -30,43 +26,65 @@ function view(sym) {
       }
     }
 
-    const relevantgroups = groups.filter((g) => g.has(sym.name));
-    if (relevantgroups) {
-      for (const group of relevantgroups) {
-        const grp = document.createElement("span");
-        grp.classList.add("related-syms-group");
-        for (const v of group)
-          for (const symbol of symbols.filter((x) => x.name === v)) {
-            if (symbol.symbol === sym.symbol) continue;
+    for (const [gid, { name, values }] of groups) {
+      console.log(id, "in?", gid, name, values);
+      if (!values.has(id)) continue;
+      console.log("has symbol");
+      const grp = document.createElement("div");
+      grp.classList.add("related-syms-group");
 
-            const container = document.createElement("a");
-            container.classList.add("symbol-box");
-            container.href = "viewer.html?s=" + encodeURIComponent(symbol.symbol);
+      const grname = document.createElement("div");
+      grname.classList.add("group-name");
+      grname.textContent = name;
+      grp.append(grname);
 
-            const nameplate = document.createElement("span");
-            nameplate.classList.add("symbol-box-name");
-            nameplate.textContent = v;
+      for (const vid of values) {
+        const symbol = symbols.get(vid);
+        const name = symbol?.name ?? vid,
+          sym = symbol?.symbol ?? "�";
 
-            // symbol itself
-            const symdis = document.createElement("span");
-            symdis.classList.add("symbol-box-symbol");
-            symdis.textContent = symbol.symbol;
+        const container = document.createElement("a");
+        container.classList.add("symbol-box");
+        container.href = "viewer.html#" + vid;
+        container.onclick = () => setTimeout(refreshFromURL, 5);
 
-            container.append(nameplate, symdis);
-            grp.append(container);
-          }
-        rels.append(grp, document.createElement("hr"));
+        const nameplate = document.createElement("span");
+        nameplate.classList.add("symbol-box-name");
+        nameplate.textContent = name;
+
+        // symbol itself
+        const symdis = document.createElement("span");
+        symdis.classList.add("symbol-box-symbol");
+        symdis.textContent = sym;
+
+        container.append(nameplate, symdis);
+        grp.append(container);
       }
+      rels.append(grp, document.createElement("hr"));
     }
   }
 }
 
-if (actualSym) {
-  const lfor = decodeURIComponent(actualSym);
-  const sym = symbols.find((x) => x.symbol === lfor);
-  view(sym);
-} else if (symname) {
-  const lfor = decodeURIComponent(symname).toLowerCase();
-  const sym = symbols.find((x) => x.name.toLowerCase() === lfor);
-  view(sym);
+function refreshFromURL() {
+  const search = new URLSearchParams(window.location.search);
+  const actualSym = search.get("s");
+  const symname = search.get("sym");
+  const symid = window.location.hash;
+
+  rels.replaceChildren([]);
+  tags.replaceChildren([]);
+  if (symid) {
+    const id = symid.substring(1);
+    const sym = symbols.get(id);
+    view(id, sym);
+  } else if (actualSym) {
+    const lfor = decodeURIComponent(actualSym);
+    const [id, sym] = symbols.entries().find(([, x]) => x.symbol === lfor);
+    view(id, sym);
+  } else if (symname) {
+    const lfor = decodeURIComponent(symname).toLowerCase();
+    const [id, sym] = symbols.find(([, x]) => x.name.toLowerCase() === lfor);
+    view(id, sym);
+  }
 }
+refreshFromURL();

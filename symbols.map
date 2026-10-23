@@ -1,127 +1,118 @@
-Alpha : a -> α
-Alpha : a -> Α
-Beta : b, ss -> β
-Beta : b -> Β
-Gamma : g -> Γ
-Gamma : g -> γ
-Gamma : g -> ɣ
-Delta : d, change -> δ
-Delta : d, change -> Δ
-Epsilon : e, infinitesimal -> ε
-Epsilon : e -> Ε
-Iota : i -> ι
-Iota : i -> Ι
-Omicron : o -> ο
-Omicron : o -> ο
-Omega : o -> ω
-Omega : o -> Ω
-Lambda : l -> λ
-Lambda : l -> Λ
-Kappa : k -> κ
-Kappa : k -> Κ
-Phi : ph, golden ratio, 1.6180339887498948482045868 -> ɸ
-Phi : ph -> Φ
-Psi : ps -> ψ
-Psi : ps -> Ψ
-Pi : p -> Π
-Pi : p, 3.1415926535897932384626433 -> π
-Rho : r -> ρ
-Rho : R -> Ρ
-Upsilon : u, y -> υ
-Upsilon : u, y -> Υ
-Nu : n -> ν
-Nu : n -> Ν
-Mu : m -> μ
-Mu : M -> Μ
-Theta : t -> θ
-Theta : t -> ϑ
-Sigma : s -> σ
-Sigma : s -> Σ
-Final Sigma : s -> ς
-Tau : t, 2pi -> τ
-Chi : c -> χ
-Chi : c -> Χ
-Xi : x, everything -> ξ
-Xi : x -> Ξ
-Zeta : z -> ς
-Zeta : z -> Ζ
-
-Infinity :-> ∞
-e : 2.7182818284590452353602874 -> e
-
-Function : f -> ƒ
-
-N (Double-Struck) : naturals, N -> ℕ
-Z (Double-Struck) : integers, Z -> ℤ
-Q (Double-Struck) : rationals, Q -> ℚ
-R (Double-Struck) : reals, R -> ℝ
-C (Double-Struck) : complex, C -> ℂ
-
-Not Equal To : neq, != -> ≠
-Approximately : ~=, almost equal -> ≈
-Less Than or Equal To : leq, <= -> ≤
-Greater Than or Equal To : geq, >= -> ≥
-Identical To : =, identity, equivalent -> ≡
-Isomorphic To : approx, similar, congruent -> ≅
-Minus-Or-Plus : +, - -> ∓
-Plus-Or-Minus : +, - -> ±
-Dot : bullet, dot product, times -> ∙
-Multiplication : times, x, * -> ×
-Division : divide, / -> ÷
-
-Circled Plus : o+, xor, direct sum -> ⊕
-Circled Times : ox -> ⊗
-
-Degrees :-> °
-Complement : c -> ∁
-
-Square Root : sqrt -> √
-
-Top : true, tautology, truth, verum, tee -> ⊤
-Bottom : false, falsity, contradiction, falsum, up tack, perpendicular -> ⊥
-For All : every, forall, foreach -> ∀
-There Exists : some -> ∃
-Logical Not :-> ¬
-Logical Or : disjunction -> ∨
-Logical And : conjunction -> ∧
-Logical Xor : exclusive disjunction -> ⊻
-Implication : implies, => -> ⇒
-Reverse Implication : implied by, <= -> ⇐
-Two-Way Implication : iff, if and only if, <=> -> ⇔
-Models : double turnstile, entails, satisfies, semantic consequence -> ⊨
-Proves : turnstile, entails, syntactic consequence -> ⊢
-
-Independent : double up tack -> ⫫
-
-Therefore : :., .: -> ∴
-Because :-> ∵
-
-Minus (Superscript) : overline, bar, negative -> ⁻
-Plus (Superscript) : positive -> ⁺
-Minus (Subscript) : negative -> ₋
-Plus (Subscript) : positive -> ₊
-Overline :-> ̄
-Double Dot : .. -> ̈
-Prime : ' -> ′
-
-Summation :-> ∑
-Product :-> ∏
-Integral : sum -> ∫
-Closed Integral : circled integral -> ∮
-Partial Derivative : d -> ∂
-Del : nabla, gradient -> ∇
-
-Subset :-> ⊆
-Proper Subset :-> ⊂
-Not Subset :-> ⊄
-Superset :-> ⊇
-Proper Superset :-> ⊃
-Not Superset :-> ⊅
-Element Of : in -> ∈
-Not Element Of : not in -> ∉
-Contains :-> ∋
-Does Not Contain :-> ∌
-Empty Set : nothing -> ∅
-Intersection : and -> ∩
-Union : or -> ∪
-Set Difference : without, except, not -> ∖
+alpha           | Alpha                    | a | α
+alpha-upper     | Alpha                    | A | Α
+beta            | Beta                     | b, ss | β
+beta-upper      | Beta                     | B | Β
+gamma-upper     | Gamma                    | g | Γ
+gamma           | Gamma                    | g | γ
+gamma-alt       | Gamma                    | G | ɣ
+delta           | Delta                    | d, change | δ
+delta-upper     | Delta                    | D, change | Δ
+epsilon         | Epsilon                  | e, infinitesimal | ε
+epsilon-upper   | Epsilon                  | E | Ε
+iota            | Iota                     | i | ι
+iota-upper      | Iota                     | I | Ι
+omicron         | Omicron                  | o | ο
+omicron-upper   | Omicron                  | O | Ο
+omega           | Omega                    | o | ω
+omega-upper     | Omega                    | O | Ω
+lambda          | Lambda                   | l | λ
+lambda-upper    | Lambda                   | L | Λ
+kappa           | Kappa                    | k | κ
+kappa-upper     | Kappa                    | K | Κ
+phi             | Phi                      | ph, golden ratio, 1.6180339887498948482045868 | ɸ
+phi-upper       | Phi                      | PH | Φ
+psi             | Psi                      | ps | ψ
+psi-upper       | Psi                      | PS | Ψ
+pi              | Pi                       | P, 3.1415926535897932384626433 | π
+pi-upper        | Pi                       | p | Π
+rho             | Rho                      | r | ρ
+rho-upper       | Rho                      | R | Ρ
+upsilon         | Upsilon                  | u, y | υ
+uppersilon      | Upsilon                  | U, y | Υ
+nu              | Nu                       | n | ν
+nu-upper        | Nu                       | N | Ν
+mu              | Mu                       | m | μ
+mu-upper        | Mu                       | M | Μ
+theta           | Theta                    | t | θ
+theta-upper     | Theta                    | T | Θ
+theta-alt       | Theta                    | t | ϑ
+sigma           | Sigma                    | s | σ
+sigma-upper     | Sigma                    | S | Σ
+sigma-final     | Final Sigma              | s | ς
+tau             | Tau                      | t, 2pi | τ
+chi             | Chi                      | c | χ
+chi-upper       | Chi                      | C | Χ
+xi              | Xi                       | x, everything | ξ
+xi-upper        | Xi                       | X | Ξ
+zeta            | Zeta                     | z | ς
+zeta-upper      | Zeta                     | Z | Ζ
+inf             | Infinity                 || ∞
+e               | e                        | 2.7182818284590452353602874 | 𝓮
+fn              | Function                 | f | ƒ
+double-n        | N (Double-Struck)        | naturals, N | ℕ
+double-z        | Z (Double-Struck)        | integers, Z | ℤ
+double-q        | Q (Double-Struck)        | rationals, Q | ℚ
+double-r        | R (Double-Struck)        | reals, R | ℝ
+double-c        | C (Double-Struck)        | complex, C | ℂ
+double-e        | E (Double-Struck)        | expectation, E | 𝔼
+double-v        | V (Double-Struck)        | variance, V | 𝕍
+double-p        | P (Double-Struck)        | probability, prime, P | ℙ
+inequal         | Not Equal To             | neq, inequal, != | ≠
+approx          | Approximately            | ~=, almost equal | ≈
+less-equal      | Less Than or Equal To    | leq, <= | ≤
+greater-equal   | Greater Than or Equal To | geq, >= | ≥
+identical       | Identical To             | =, identity, equivalent | ≡
+isomorphic      | Isomorphic To            | approx, similar, congruent | ≅
+minus-plus      | Minus-Or-Plus            | +, - | ∓
+plus-minus      | Plus-Or-Minus            | +, - | ±
+dot             | Dot                      | bullet, dot product, times | ∙
+multiply        | Multiplication           | times, x, * | ×
+divide          | Division                 | divide, / | ÷
+circ-plus       | Circled Plus             | o+, xor, direct sum | ⊕
+circ-times      | Circled Times            | ox | ⊗
+degrees         | Degrees                  || °
+complement      | Complement               | c | ∁
+sqrt            | Square Root              | sqrt | √
+true            | Top                      | true, tautology, truth, verum, tee | ⊤
+false           | Bottom                   | false, falsity, contradiction, falsum, up tack, perpendicular | ⊥
+for-all         | For All                  | every, forall, foreach | ∀
+exists          | There Exists             | some | ∃
+logic-not       | Logical Not              || ¬
+logic-or        | Logical Or               | disjunction | ∨
+logic-and       | Logical And              | conjunction | ∧
+logic-xor       | Logical Xor              | exclusive disjunction | ⊻
+implies         | Implication              | implies, => | ⇒
+implies-reverse | Reverse Implication      | implied by, <= | ⇐
+implies-double  | Two-Way Implication      | iff, if and only if, <=> | ⇔
+models          | Models                   | double turnstile, entails, satisfies, semantic consequence | ⊨
+proves          | Proves                   | turnstile, entails, syntactic consequence | ⊢
+independent     | Independent              | double up tack | ⫫
+therefore       | Therefore                | :., .: | ∴
+because         | Because                  || ∵
+sup-minus       | Minus (Superscript)      | overline, bar, negative | ⁻
+sup-plus        | Plus (Superscript)       | positive | ⁺
+sub-minus       | Minus (Subscript)        | negative | ₋
+sub-plus        | Plus (Subscript)         | positive | ₊
+combining-line  | Overline                 || ̄
+combining-dots  | Double Dot               | .. | ̈
+prime           | Prime                    | ' | ′
+sum             | Summation                || ∑
+product         | Product                  || ∏
+integral        | Integral                 | sum | ∫
+integral-closed | Closed Integral          | circled integral, circulation | ∮
+partial         | Partial Derivative       | d | ∂
+nabla           | Del                      | nabla, gradient | ∇
+subset          | Subset                   || ⊆
+subset-strict   | Proper Subset            || ⊂
+subset-not      | Not Subset               || ⊄
+supset          | Superset                 || ⊇
+supset-strict   | Proper Superset          || ⊃
+supset-not      | Not Superset             || ⊅
+in              | Element Of               | in | ∈
+in-not          | Not Element Of           | not in | ∉
+contains        | Contains                 || ∋
+contains-not    | Does Not Contain         || ∌
+set-empty       | Empty Set                | nothing | ∅
+set-and         | Intersection             | and | ∩
+set-or          | Union                    | or | ∪
+set-not         | Set Difference           | without, except, not | ∖

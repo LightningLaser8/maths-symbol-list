@@ -142,6 +142,12 @@ head {
   font-weight: bold;
   margin-right: 5px;
 }
+.group-name {
+  font-weight: bold;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: #808;
+}
 .symbol-box-symbol {
   font-weight: bolder;
   font-size: large;

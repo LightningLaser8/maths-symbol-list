@@ -10,45 +10,48 @@ const searchbtn = document.getElementById("search-btn");
 // console.log("symbols: ", symbols);
 
 searchbtn.addEventListener("click", update);
-search.addEventListener("keydown", (e) => {
+search.addEventListener("keydown", e => {
   if (e.key === "Enter") {
     searchbtn.click();
   }
 });
-search.click()
+search.click();
 
 function update() {
   const term = search.value.toLowerCase();
   list.innerHTML = "";
-  symbols
-    .map((sym) => {
-      const res = sym.tags.map((t) => ({ t: t, i: t.indexOf(term) })).filter((t) => t.i != -1),
+  [...symbols.entries()]
+    .map(([id, sym]) => {
+      const res = sym.tags.map(t => ({ t: t, i: t.indexOf(term) })).filter(t => t.i != -1),
         nametermidx = sym.name.toLowerCase().indexOf(term);
       // console.log(
-      //   `${sym.name} matching ${res.length} items: ${res.map((t) => t.t)} (at ${res.map((t) => t.i)})`,
+      //   `'${sym.name}' matching '${term}' : ${res.length}${nametermidx !== -1 ? " + name" : ""} items: ${res.map((t) => t.t)} (at ${res.map((t) => t.i)})`,
       // );
-      const rel = Math.ceil(Math.sqrt(res.length)),
-        avg = res.reduce((p, c) => p + c.i, 0) / res.length,
-        nameboost = +(nametermidx != -1) * 2,
-        namesub = nameboost ? nametermidx : 0,
-        completeboost = sym.tags.filter((t) => t === term).length * 0.5;
-      // if (rel > 0) // console.log(rel, avg, boost, res.map(r => r.i).join(" + "));
-      // else // console.log("ignore")
+      let rel = Math.ceil(Math.sqrt(res.length));
+      if (nametermidx !== -1) rel += 2;
+      const avg = res.reduce((p, c) => p + c.i, 0) / res.length,
+        namesub = nametermidx !== -1 ? nametermidx : 0,
+        completeboost = sym.tags.filter(t => t === term).length * 0.5;
+      // if (rel > 0) console.log(rel, avg, namesub + completeboost, res.map(r => r.i).join(" + "));
+      // else console.log("ignore")
       return rel > 0 ?
-          {
-            n: sym.name,
-            s: sym.symbol,
-            // relevance is calculated by the number occurrences of the term
-            // minus the mean number of characters before it
-            // plus 2 if the name has it
-            r: rel - avg + nameboost - namesub + completeboost,
-            t: res.map((t) => t.t),
-          }
+          [
+            id,
+            {
+              n: sym.name,
+              s: sym.symbol,
+              // relevance is calculated by the number occurrences of the term
+              // minus the mean number of characters before it
+              // plus 2 if the name has it
+              r: rel - avg - namesub + completeboost,
+              t: res.map(t => t.t).filter(t => t),
+            },
+          ]
         : undefined;
     })
-    .filter((x) => x)
-    .sort((a, b) => b.r - a.r) // sort descending by relevance
-    .forEach((sym) => {
+    .filter(x => x)
+    .sort(([, a], [, b]) => b.r - a.r) // sort descending by relevance
+    .forEach(([id, sym]) => {
       const p = document.createElement("div");
       p.classList.add("search-item");
 
@@ -56,7 +59,7 @@ function update() {
       const expander = document.createElement("a");
       expander.classList.add("search-item-expand", "unf");
       expander.textContent = "👁️";
-      expander.href = "viewer.html?sym=" + encodeURIComponent(sym.n);
+      expander.href = "viewer.html#" + id;
 
       // copy indicator
       const copier = document.createElement("button");
@@ -82,27 +85,29 @@ function update() {
       // create bit that shows you what matched your query
       const resulttag = document.createElement("span");
       resulttag.classList.add("search-item-tags");
-      resulttag.append(document.createTextNode("("));
+      if (sym.t.length > 0) {
+        resulttag.append(document.createTextNode("("));
 
-      sym.t.forEach((t, i, a) => {
-        const result = document.createElement("span");
-        result.classList.add("search-item-tag");
-        // // console.log("highlighting tag " + t);
-        const divided = t.split(term).flatMap((v, i, a) => (i !== a.length - 1 ? [v, term] : [v]));
-        // // console.log("split to ",divided);
-        for (const part of divided) {
-          // // console.log(`appending '${part}' (${part === term ? "is term" : "is not term"})`);
+        sym.t.forEach((t, i, a) => {
+          const result = document.createElement("span");
+          result.classList.add("search-item-tag");
+          // // console.log("highlighting tag " + t);
+          const divided = t.split(term).flatMap((v, i, a) => (i !== a.length - 1 ? [v, term] : [v]));
+          // // console.log("split to ",divided);
+          for (const part of divided) {
+            // // console.log(`appending '${part}' (${part === term ? "is term" : "is not term"})`);
 
-          const u = document.createElement("span");
-          u.classList.add(part === term ? "search-item-tag-term" : "search-item-tag-irrelevant");
-          u.textContent = part;
+            const u = document.createElement("span");
+            u.classList.add(part === term ? "search-item-tag-term" : "search-item-tag-irrelevant");
+            u.textContent = part;
 
-          result.append(u);
-        }
-        resulttag.append(result);
-        if (i !== a.length - 1) resulttag.append(document.createTextNode(", "));
-      });
-      resulttag.append(document.createTextNode(")"));
+            result.append(u);
+          }
+          resulttag.append(result);
+          if (i !== a.length - 1) resulttag.append(document.createTextNode(", "));
+        });
+        resulttag.append(document.createTextNode(")"));
+      }
       // // relevance
       // const relevance = document.createElement("span");
       // relevance.classList.add("search-item-relevance");

@@ -1,13 +1,14 @@
-Alpha, Beta, Gamma, Delta, Epsilon, Iota, Omicron, Omega, Lambda, Kappa, Phi, Psi, Pi, Rho, Upsilon, Nu, Mu, Theta, Sigma, Final Sigma, Tau, Chi, Xi, Zeta, Zeta
-e, Pi, Infinity
-N (Double-Struck), Z (Double-Struck), Q (Double-Struck), R (Double-Struck), C (Double-Struck)
-Not Equal To, Approximately, Less Than or Equal To, Greater Than or Equal To, Identical To, Isomorphic To
-Minus-Or-Plus, Plus-Or-Minus, Dot, Multiplication, Division, Circled Plus, Circled Times
-Top, Bottom, For All, There Exists, Logical Not, Logical Or, Logical And, Logical Xor, Implication, Reverse Implication, Two-Way Implication, Models, Proves, Independent
-
-Minus (Superscript), Plus (Superscript), Minus (Subscript), Plus (Subscript), Overline, Double Dot, Prime
-Summation, Product, Integral, Partial Derivative, Del, Closed Integral
-
-Logical Xor, Circled Plus
-
-Subset, Proper Subset, Not Subset, Superset, Proper Superset, Not Superset, Element Of, Not Element Of, Contains, Does Not Contain, Empty Set, Intersection, Union, Set Difference
+greek     | Greek Letters              | alpha, alpha-upper, beta, beta-upper, gamma-upper, gamma, gamma-alt, delta, delta-upper, epsilon, epsilon-upper, iota, iota-upper, omicron, omicron-upper, omega, omega-upper, lambda, lambda-upper, kappa, kappa-upper, phi, phi-upper, psi, psi-upper, pi, pi-upper, rho, rho-upper, upsilon, uppersilon, nu, nu-upper, mu, mu-upper, theta, theta-upper, theta-alt, sigma, sigma-upper, sigma-final, tau, chi, chi-upper, xi, xi-upper, zeta, zeta-upper, 
+consts    | Scalar Constants           | e, pi, inf, phi, tau
+numsets   | Constant Number Sets       | double-n, double-z, double-q, double-r, double-c
+stats     | Probability and Statistics | double-e, double-p, double-v, independent
+comp      | Comparators                | inequal, greater-equal, less-equal, approx, isomorphic
+basic-op  | Arithmetic Operators       | multiply, divide, plus-minus, minus-plus, circ-plus, circ-times, sqrt
+supscr    | Superscripts               | complement, degrees, sup-plus, sup-minus, prime
+combining | Combining Symbols          | combining-line, combining-dots
+limit     | Limit Operators            | product, integral, integral-closed
+calculus  | Calculus                   | integral, integral-closed, nabla, partial
+sets      | Set Theory                 | subset, subset-strict, subset-not, supset, supset-strict, supset-not, in, in-not, contains, contains-not, set-empty, set-and, set-or, set-not
+l-quant   | Quantifiers                | exists, for-all
+l-ops     | Logical Operators          | logic-not, logic-and, logic-or, logic-xor, implies, implies-reverse, implies-double, models, proves
+reasoning | Logic and Reasoning        | implies, implies-reverse, implies-double, therefore, because, true, false
