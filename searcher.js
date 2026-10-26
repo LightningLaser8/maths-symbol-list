@@ -22,16 +22,30 @@ function update() {
   list.innerHTML = "";
   [...symbols.entries()]
     .map(([id, sym]) => {
-      const res = sym.tags.map(t => ({ t: t, i: t.indexOf(term) })).filter(t => t.i != -1),
-        nametermidx = sym.name.toLowerCase().indexOf(term);
+      const name = sym.name.toLowerCase();
+      if (term === name)
+        return [
+          id,
+          {
+            n: sym.name,
+            s: sym.symbol,
+            // put exact matches at the top
+            r: Infinity,
+            t: [],
+          },
+        ];
+
+      const res = sym.tags.map(t => ({ t: t, i: t.indexOf(term) })).filter(t => t.i !== -1),
+        nametermidx = name.indexOf(term);
       // console.log(
       //   `'${sym.name}' matching '${term}' : ${res.length}${nametermidx !== -1 ? " + name" : ""} items: ${res.map((t) => t.t)} (at ${res.map((t) => t.i)})`,
       // );
       let rel = Math.ceil(Math.sqrt(res.length));
-      if (nametermidx !== -1) rel += 2;
-      const avg = res.reduce((p, c) => p + c.i, 0) / res.length,
+      if (nametermidx !== -1) rel += 3;
+      const avg = res.length === 0 ? 0 : Math.min(res.map(({ i }) => i)), // res.reduce((p, c) => p + c.i, 0) / res.length,
         namesub = nametermidx !== -1 ? nametermidx : 0,
         completeboost = sym.tags.filter(t => t === term).length * 0.5;
+      rel = rel - avg - namesub + completeboost;
       // if (rel > 0) console.log(rel, avg, namesub + completeboost, res.map(r => r.i).join(" + "));
       // else console.log("ignore")
       return rel > 0 ?
@@ -43,7 +57,7 @@ function update() {
               // relevance is calculated by the number occurrences of the term
               // minus the mean number of characters before it
               // plus 2 if the name has it
-              r: rel - avg - namesub + completeboost,
+              r: rel,
               t: res.map(t => t.t).filter(t => t),
             },
           ]
@@ -58,16 +72,19 @@ function update() {
       // expander
       const expander = document.createElement("a");
       expander.classList.add("search-item-expand", "unf");
-      expander.textContent = "👁️";
+      expander.textContent = "👁";
       expander.href = "viewer.html#" + id;
+      expander.title = "Open in Large Viewer";
 
       // copy indicator
       const copier = document.createElement("button");
       copier.classList.add("search-item-copy");
       copier.textContent = "📋";
+      copier.title = "Copy to Clipboard";
       p.addEventListener("click", () => {
         copy(sym.s);
         copier.textContent = "✔️";
+        copier.title = "Copied to Clipboard";
       });
 
       // copier.append(cimg);
@@ -108,12 +125,33 @@ function update() {
         });
         resulttag.append(document.createTextNode(")"));
       }
-      // // relevance
+      // relevance
       // const relevance = document.createElement("span");
       // relevance.classList.add("search-item-relevance");
       // relevance.textContent = sym.r;
+      // p.append(relevance);
 
-      p.append(expander, copier, symdis, nameplate, resulttag);
+      const sep = document.createElement("span");
+      sep.classList.add("search-item-sep");
+      
+      const csep = document.createElement("span");
+      csep.classList.add("search-item-fav-sep");
+
+      p.append(copier, csep, symdis, nameplate, resulttag, sep);
+
+      if (sym.r === Infinity) {
+        const star = document.createElement("span");
+        star.classList.add("search-item-perfect-match");
+        star.textContent = "★";
+        star.title = "Perfect Match";
+        p.append(star);
+      }
+
+      const fsep = document.createElement("span");
+      fsep.classList.add("search-item-fav-sep");
+
+      p.append(expander, fsep, );
+
       list.appendChild(p);
     });
 }
