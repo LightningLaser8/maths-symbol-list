@@ -33,10 +33,26 @@ function update() {
               n: sym.name,
               s: sym.symbol,
               // put exact matches at the top
-              r: Infinity,
+              r: 1001,
               t: [],
+              m: 2,
             },
           ];
+        if (sym.tags.includes(term)) {
+          return [
+            id,
+            {
+              n: sym.name,
+              s: sym.symbol,
+              // relevance is calculated by the number occurrences of the term
+              // minus the mean number of characters before it
+              // plus 2 if the name has it
+              r: 1000,
+              t: [term],
+              m: 1,
+            },
+          ];
+        }
 
         const res = sym.tags.map(t => ({ t: t, i: t.indexOf(term) })).filter(t => t.i !== -1),
           nametermidx = name.indexOf(term);
@@ -62,12 +78,13 @@ function update() {
             // plus 2 if the name has it
             r: rel,
             t: res.map(t => t.t).filter(t => t),
+            m: 0,
           },
         ];
       })
       .filter(x => x),
   ];
-  const mostRelevant = maxFiniteRelevance(all);
+  const mostRelevant = maxNonPerfectRelevance(all);
 
   const maxrel = mostRelevant ? mostRelevant[1].r : 0;
   // console.log("max is", mostRelevant, maxrel);
@@ -182,11 +199,23 @@ function createResult(id, sym, term, fav) {
 
   p.append(copier, csep, symdis, nameplate, resulttag, sep);
 
-  if (sym.r === Infinity) {
+  if (sym.m) {
     const star = document.createElement("span");
-    star.classList.add("search-item-perfect-match");
-    star.textContent = "✔";
-    star.title = "Perfect Match";
+    star.classList.add("search-item-match");
+    if (sym.m === 2) {
+      star.innerHTML = `<svg xmlns="http://w3.org" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15.5 10.5c0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.72 4.44 4 4.9" />
+          <line x1="14" y1="14" x2="20" y2="20" />
+          <path d="M8.5 10.5l1.5 1.5 3-3" />
+        </svg>`;
+      star.title = "Exact Name Match";
+      star.classList.add("search-item-perfect-match");
+    } else if (sym.m === 1) {
+      star.textContent = "🏷";
+      star.style.fontWeight = "bolder";
+      star.title = "Exact Tag Match";
+      star.classList.add("search-item-tag-match");
+    }
     p.append(star);
   }
 
@@ -218,14 +247,14 @@ function createResult(id, sym, term, fav) {
   list.appendChild(p);
 }
 /**@param {[,{r: number}][]} stuff  */
-function maxFiniteRelevance(stuff) {
+function maxNonPerfectRelevance(stuff) {
   let max = -Infinity,
     chosen = null;
   for (const item of stuff) {
     if (!item?.[1]) continue;
     // console.log(item);
     const rel = item[1].r;
-    if (rel > max && Number.isFinite(rel)) {
+    if (rel > max && rel < 1000) {
       max = rel;
       chosen = item;
     }
