@@ -116,7 +116,7 @@ function createResult(id, sym, term, fav) {
   const expander = document.createElement("a");
   expander.classList.add("search-item-expand", "unf");
   expander.textContent = "👁";
-  expander.href = "viewer.html#" + id;
+  expander.href = "./viewer/index.html#" + id;
   expander.title = "Open in Large Viewer";
 
   // copy indicator
@@ -185,7 +185,7 @@ function createResult(id, sym, term, fav) {
   if (sym.r === Infinity) {
     const star = document.createElement("span");
     star.classList.add("search-item-perfect-match");
-    star.textContent = "☍";
+    star.textContent = "✔";
     star.title = "Perfect Match";
     p.append(star);
   }

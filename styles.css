@@ -54,11 +54,11 @@ head {
   background-color: #faf;
   border: 2px double #f0f;
 }
-#search-btn{
+#search-btn {
   background-color: #faf;
   border: 2px double #f0f;
 }
-.unf{
+.unf {
   color: inherit;
   text-decoration: inherit;
 }
@@ -74,7 +74,6 @@ head {
   border-right-width: 2px;
   display: flex;
   align-items: center;
-
 }
 .search-item > * {
   margin-right: 5px;
@@ -154,24 +153,24 @@ head {
   background: linear-gradient(45deg, #303, #505);
   border: 5px solid #f0f;
   display: block;
-  width: 60%;
+  min-width: fit-content;
   text-align: center;
   cursor: pointer;
 }
-#symbol{
+#symbol {
   display: inline-block;
   vertical-align: middle;
 }
-#related-syms{
+#related-syms {
   display: block;
-  flex-direction: column; 
+  flex-direction: column;
 }
-.related-syms-group{
+.related-syms-group {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;  
+  align-items: center;
 }
-.symbol-box{
+.symbol-box {
   padding: 3px;
   background-color: #faf;
   border: 2px double #f0f;
@@ -183,18 +182,14 @@ head {
   font-weight: bold;
   margin-right: 5px;
 }
-.group-name {
-  font-weight: bold;
-  margin-right: 5px;
-  margin-left: 5px;
-  color: #808;
-}
 .symbol-box-symbol {
   font-weight: bolder;
   font-size: large;
   color: #808;
+  margin-right: 5px;
+  margin-left: 2.5px;
 }
-.symbol-aka{
+.symbol-aka {
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 2px;
@@ -206,8 +201,35 @@ head {
   margin: 2px;
   font-style: italic;
 }
-.syms-aka-group{
+.syms-aka-group {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+.group-name-deco {
+  height: 1px;
+  max-width: 60px;
+  flex-grow: 1;
+}
+.wider {
+  flex-grow: 3;
+  max-width: none;
+}
+hr, .group-name-deco {
+  border-color: #000;
+  background-color: #000;
+}
+.group-name-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.group-name {
+  font-weight: bold;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: #808;
+}
+#related-syms {
+  max-width: 75%;
 }

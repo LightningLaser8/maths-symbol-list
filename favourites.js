@@ -23,4 +23,4 @@ export const favourites = {
   },
 };
 favourites.load();
-console.log(favourites.all);
+// console.log(favourites.all);

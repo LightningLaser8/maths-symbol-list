@@ -6,7 +6,7 @@ export const groups = new Map(
       symline = symline.trim();
       if (!symline) return;
       const parts = symline.split("|", 3).map(x => x.trim());
-      console.log(parts)
+      // console.log(parts)
       if (parts.length !== 3) return;
       const [id, name, values] = parts;
       return [
@@ -25,4 +25,4 @@ export const groups = new Map(
     .filter(x => !!x),
 );
 
-console.log(groups);
+// console.log(groups);

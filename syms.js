@@ -16,4 +16,4 @@ export const symbols = new Map(
     })
     .filter(x => !!x),
 );
-console.log(symbols);
+// console.log(symbols);

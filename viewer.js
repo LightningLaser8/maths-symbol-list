@@ -9,15 +9,13 @@ const rels = document.getElementById("related-syms");
 /**@param {typeof symbols extends Map<*, infer T> ? T : never} sym @param {string} id  */
 function view(id, sym) {
   if (sym) {
-    document.title = `Symbol Viewer - ${sym.name}`;
+    document.title = `Maths Symbol List - ${sym.name}`;
     symame.textContent = sym.name;
-    symholder.textContent = sym.symbol;
+    symholder.textContent = `  ${sym.symbol}  `;
     bigsym.onclick = () => navigator.clipboard.writeText(sym.symbol);
 
     if (sym.tags.length > 1) {
-      const sname = sym.name.toLowerCase();
       for (const t of sym.tags) {
-        if (t === sname) continue;
         const container = document.createElement("span");
         container.classList.add("symbol-aka");
         container.textContent = t;
@@ -27,16 +25,23 @@ function view(id, sym) {
     }
 
     for (const [gid, { name, values }] of groups) {
-      console.log(id, "in?", gid, name, values);
+      // console.log(id, "in?", gid, name, values);
       if (!values.has(id)) continue;
-      console.log("has symbol");
+      // console.log("has symbol");
+      const grname = document.createElement("div");
+      grname.classList.add("group-name-holder");
+
+      const gs1 = document.createElement("span");
+      gs1.classList.add("group-name-deco");
+      const grpname = document.createElement("span");
+      grpname.classList.add("group-name");
+      grpname.textContent = name;
+      const gs2 = document.createElement("span");
+      gs2.classList.add("group-name-deco", "wider");
+      grname.append(gs1, grpname, gs2);
+
       const grp = document.createElement("div");
       grp.classList.add("related-syms-group");
-
-      const grname = document.createElement("div");
-      grname.classList.add("group-name");
-      grname.textContent = name;
-      grp.append(grname);
 
       for (const vid of values) {
         const symbol = symbols.get(vid);
@@ -57,11 +62,12 @@ function view(id, sym) {
         symdis.classList.add("symbol-box-symbol");
         symdis.textContent = sym;
 
-        container.append(nameplate, symdis);
+        container.append(symdis, nameplate);
         grp.append(container);
       }
-      rels.append(grp, document.createElement("hr"));
+      rels.append(grname, grp);
     }
+    rels.append(document.createElement("hr"));
   }
 }
 

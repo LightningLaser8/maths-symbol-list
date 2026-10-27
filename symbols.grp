@@ -1,7 +1,7 @@
 greek     | Greek Letters              | alpha, alpha-upper, beta, beta-upper, gamma-upper, gamma, gamma-alt, delta, delta-upper, epsilon, epsilon-upper, iota, iota-upper, omicron, omicron-upper, omega, omega-upper, lambda, lambda-upper, kappa, kappa-upper, phi, phi-upper, psi, psi-upper, pi, pi-upper, rho, rho-upper, upsilon, uppersilon, nu, nu-upper, mu, mu-upper, theta, theta-upper, theta-alt, sigma, sigma-upper, sigma-final, tau, chi, chi-upper, xi, xi-upper, zeta, zeta-upper, 
 consts    | Scalar Constants           | e, pi, inf, phi, tau
-numsets   | Constant Number Sets       | double-n, double-z, double-q, double-r, double-c
-stats     | Probability and Statistics | double-e, double-p, double-v, independent
+numsets   | Constant Number Sets       | double-n, double-z, double-q, double-r, double-c, double-h
+stats     | Probability and Statistics | double-e, double-p, double-v, independent, double-i
 comp      | Comparators                | inequal, greater-equal, less-equal, approx, isomorphic
 basic-op  | Arithmetic Operators       | multiply, divide, plus-minus, minus-plus, circ-plus, circ-times, sqrt
 supscr    | Superscripts               | complement, degrees, sup-plus, sup-minus, prime
