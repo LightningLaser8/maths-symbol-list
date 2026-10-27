@@ -116,7 +116,7 @@ function createResult(id, sym, term, fav) {
   const expander = document.createElement("a");
   expander.classList.add("search-item-expand", "unf");
   expander.textContent = "👁";
-  expander.href = "./viewer/index.html#" + id;
+  expander.href = "./viewer.html#" + id;
   expander.title = "Open in Large Viewer";
 
   // copy indicator

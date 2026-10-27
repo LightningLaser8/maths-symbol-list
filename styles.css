@@ -15,6 +15,22 @@ body {
   height: 100%;
   margin: 0;
 }
+.top-level {
+  max-width: 80%;
+  min-width: fit-content;
+}
+.top-level-sep {
+  width: 10%;
+}
+.stretch {
+  flex-grow: 1;
+}
+.stretch-h {
+  width: 100%;
+}
+.stretch-v {
+  height: 100%;
+}
 .row {
   display: flex;
   align-items: center;
@@ -35,9 +51,6 @@ main {
 head {
   background-color: #faf;
   border: 2px double #f0f;
-}
-.s {
-  flex-grow: 1;
 }
 .placeholder {
   font-style: italic;
@@ -229,7 +242,4 @@ hr, .group-name-deco {
   margin-right: 5px;
   margin-left: 5px;
   color: #808;
-}
-#related-syms {
-  max-width: 75%;
 }
