@@ -14,20 +14,33 @@
 <body>
   <div class="s"></div>
   <main class="col">
-    <div class="head">
-      <h1>Maths <span class="ponk">Symbol</span> List</h1>
-      <div class="row">
-        <input type="search" id="search-symbols">
-        <button type="button" id="search-btn" onclick="return false;">Search</button>
-      </div><br><br>
-    </div>
-    <div id="results">
-      <span class="placeholder">Search for a symbol...</span>
+    <!-- <div class="head"> -->
+    <h1>Maths <span class="ponk">Symbol</span> List</h1>
+    <div class="row">
+      <input type="search" id="search-symbols">
+      <button type="button" id="search-btn" onclick="return false;">Search</button>
+    </div><br><br>
+    <!-- </div> -->
+    <div class="top-level stretch-h col" id="results">
+      <span id="search" class="placeholder"></span>
+      <span id="suggestion" class="placeholder"></span>
+      <span id="info" class="placeholder"></span>
     </div>
   </main>
   <div class="s"></div>
   <script src="sizer.js" defer></script>
   <script src="redirect.js"></script>
+  <script type="module">
+    import { randSym, symbols } from "./syms.js";
+
+    document.getElementById("search").textContent = "Search for a symbol...";
+
+    const rnd = randSym()?.[1];
+    if (rnd)
+      document.getElementById("suggestion").textContent = `Need inspiration? How about ${rnd.symbol} : ${rnd.name.toLowerCase()}?`;
+
+    document.getElementById("info").textContent = `We currently have ${symbols.size} symbols in database.`;
+  </script>
   <script src="searcher.js" type="module"></script>
 </body>
 

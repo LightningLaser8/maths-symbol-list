@@ -26,18 +26,19 @@ function update() {
       .entries()
       .map(([id, sym]) => {
         const name = sym.name.toLowerCase();
-        if (term === name)
+        if (term === id)
           return [
             id,
             {
               n: sym.name,
               s: sym.symbol,
               // put exact matches at the top
-              r: 1001,
+              r: 1002,
               t: [],
-              m: 2,
+              m: 3,
             },
           ];
+        if (term === name) return [id, { n: sym.name, s: sym.symbol, r: 1001, t: [], m: 2 }];
         if (sym.tags.includes(term)) {
           return [
             id,
@@ -62,9 +63,9 @@ function update() {
         // );
         let rel = Math.ceil(Math.sqrt(res.length));
         if (nametermidx !== -1) rel += 3;
-        const avg = res.length === 0 ? 0 : Math.min(res.map(({ i }) => i)), // res.reduce((p, c) => p + c.i, 0) / res.length,
-          namesub = nametermidx !== -1 ? nametermidx : 0,
-          completeboost = sym.tags.filter(t => t === term).length * 0.5;
+        const avg = (res.length === 0 ? 0 : Math.min(res.map(({ i }) => i))) || 0, // res.reduce((p, c) => p + c.i, 0) / res.length,
+          namesub = nametermidx !== -1 ? nametermidx || 0 : 0,
+          completeboost = sym.tags.filter(t => t === term).length * 0.5 || 0;
         rel = rel - avg - namesub + completeboost;
         // if (rel > 0) console.log(rel, avg, namesub + completeboost, res.map(r => r.i).join(" + "));
         // else console.log("ignore")
@@ -92,6 +93,15 @@ function update() {
   const minrel = all.length > 10 ? maxrel - 5 : -Infinity;
   // console.log("minimum rel to show is", minrel);
 
+  if (all.length === 0) {
+    const p = document.createElement("div");
+    p.classList.add("placeholder");
+    p.textContent = "No results.";
+
+    list.append(p);
+    return;
+  }
+
   const norm = [],
     favs = [];
   let more = 0;
@@ -107,14 +117,33 @@ function update() {
       favs.push(entry);
     } else norm.push(entry);
   }
+
   // sort descending by relevance
-  favs.sort(relComparer);
   norm.sort(relComparer);
-  for (const entry of favs) {
-    createResult(entry[0], entry[1], term, true);
-  }
-  for (const entry of norm) {
-    createResult(entry[0], entry[1], term, false);
+
+  if (favs.length === 0) {
+    // Special case for no favourites
+    for (const entry of norm) {
+      createResult(entry[0], entry[1], term, false);
+    }
+  } else {
+    // separate favourites from others
+    favs.sort(relComparer);
+
+    const fvs = document.createElement("div");
+    fvs.classList.add("search-list-sep");
+    fvs.textContent = "★ Favourites:";
+    list.append(fvs);
+    for (const entry of favs) {
+      createResult(entry[0], entry[1], term, true);
+    }
+    const nrm = document.createElement("div");
+    nrm.classList.add("search-list-sep");
+    nrm.textContent = "☆ Other Symbols:";
+    list.append(nrm);
+    for (const entry of norm) {
+      createResult(entry[0], entry[1], term, false);
+    }
   }
   if (more > 0) {
     const p = document.createElement("div");
@@ -158,6 +187,7 @@ function createResult(id, sym, term, fav) {
   const symdis = document.createElement("span");
   symdis.classList.add("search-item-symbol");
   symdis.textContent = sym.s;
+  symdis.title = "Relevance: " + sym.r;
 
   // create bit that shows you what matched your query
   const resulttag = document.createElement("span");
@@ -202,6 +232,11 @@ function createResult(id, sym, term, fav) {
   if (sym.m) {
     const star = document.createElement("span");
     star.classList.add("search-item-match");
+    if (sym.m === 3) {
+      star.textContent = "⟨⟩";
+      star.title = "Internal ID Match";
+      star.classList.add("search-item-id-match");
+    }
     if (sym.m === 2) {
       star.innerHTML = `<svg xmlns="http://w3.org" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M15.5 10.5c0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.72 4.44 4 4.9" />

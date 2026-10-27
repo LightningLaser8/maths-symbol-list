@@ -9,11 +9,26 @@ export const symbols = new Map(
       // registry | display | tags | symbol
       if (parts.length === 4) {
         const [id, name, tags, symbol] = parts;
-        return [id, { name, tags: tags.split(",").map(x => x.trim()), symbol }];
+        return [
+          id,
+          {
+            name,
+            tags: tags
+              .split(",")
+              .map(x => x.trim())
+              .filter(x => x),
+            symbol,
+          },
+        ];
       }
-      console.warn(`Symbol malformed: '${symline}' expected 'registry | display | tags | symbol'`);
+      console.warn(`Symbol malformed: '${symline}' expected 'id | name | tags | symbol'`);
       return undefined;
     })
     .filter(x => !!x),
 );
+export const randSym = () =>
+  symbols
+    .entries()
+    .drop(Math.floor(Math.random() * symbols.size))
+    .next().value;
 // console.log(symbols);
