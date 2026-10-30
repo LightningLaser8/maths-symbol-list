@@ -17,10 +17,34 @@
   ],
   "screenshots": [
     {
-      "src": "./delta.svg",
-      "sizes": "2880x1800",
-      "type": "image/svg+xml",
-      "description": "A screenshot of the home page"
+      "src": "./example-home-page.png",
+      "sizes": "915x543",
+      "type": "image/png",
+      "description": "A screenshot of the home page."
+    },
+    {
+      "src": "./example-search.png",
+      "sizes": "916x541",
+      "type": "image/png",
+      "description": "A screenshot of a search for 'eta', yielding several symbols."
+    },
+    {
+      "src": "./example-viewer.png",
+      "sizes": "917x545",
+      "type": "image/png",
+      "description": "A screenshot of the large viewer mode, showing the Theta symbol, and the start of the list off related symbols."
+    },
+    {
+      "src": "./example-related-symbols.png",
+      "sizes": "917x544",
+      "type": "image/png",
+      "description": "A screenshot of the large viewer mode, showcasing the Related Symbols feature."
+    },
+    {
+      "src": "./example-favourites.png",
+      "sizes": "915x543",
+      "type": "image/png",
+      "description": "A screenshot of a search, showing the user's favourited symbols appearing above other, more relevant results."
     }
   ],
   "prefer_related_applications": false,

@@ -11,6 +11,8 @@ epsilon         | Epsilon                  | e, infinitesimal | ε
 epsilon-upper   | Epsilon                  | e | Ε
 iota            | Iota                     | i | ι
 iota-upper      | Iota                     | i | Ι
+eta             | Eta                      | h | η
+eta-upper       | Eta                      | h | Η
 omicron         | Omicron                  | o | ο
 omicron-upper   | Omicron                  | o | Ο
 omega           | Omega                    | o | ω
