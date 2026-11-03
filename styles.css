@@ -370,6 +370,7 @@ input.setting-input[type="number"] {
   background-color: #faf;
   color: #f0f;
   border: 2px double #f0f;
+  user-select: none;
 }
 .settings-entry * {
   position: absolute;
