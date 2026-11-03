@@ -13,13 +13,13 @@ export const favourites = {
     this.save();
   },
   load() {
-    const str = localStorage.getItem("favs");
+    const str = localStorage.getItem("mslf");
     if (!str) this.all = new Set();
     else this.all = new Set(str.split("|"));
   },
   save() {
     const str = [...this.all].join("|");
-    localStorage.setItem("favs", str);
+    localStorage.setItem("mslf", str);
   },
 };
 favourites.load();

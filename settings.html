@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maths Symbol List - Settings</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="delta.svg">
+</head>
+
+<body>
+  <div class="stretch"></div>
+  <div class="row">
+    <div class="top-level-sep"></div>
+    <main class="stretch col">
+      <a href="index.html" class="unf">
+        <h1>Maths <span class="ponk">Symbol</span> List</h1>
+      </a>
+      <h2 class="ponk">Settings</h2>
+      <div class="stretch-h col force-top-level" id="container">
+      </div>
+      <div class="stretch-h row" id="save" style="display: none;">
+        <div class="group-name-deco"></div>
+        <div class="group-name"><span id="changes"></span></div>
+        <div class="group-name-deco wider"></div>
+        <button class="setting-save" id="save-btn">Save Changes</button>
+        <div class="group-name-deco"></div>
+      </div>
+      <div id="spacer2"></div>
+    </main>
+    <div class="top-level-sep"></div>
+  </div>
+  <a href="index.html" class="unf settings-entry" title="Return">
+    <span>⇦</span>
+  </a>
+  <script src="settings-changer.js" type="module"></script>
+  <script src="sizer.js" defer></script>
+</body>
+
+</html>

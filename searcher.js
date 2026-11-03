@@ -1,4 +1,6 @@
 import { favourites } from "./favourites.js";
+import { groups } from "./groups.js";
+import { settings } from "./settings.js";
 import { symbols } from "./syms.js";
 
 /**@type {HTMLDivElement} */
@@ -20,13 +22,27 @@ search.click();
 
 function update() {
   const term = search.value.toLowerCase();
-  list.innerHTML = "";
+  list.replaceChildren([]);
+
+  /** @type {string[]} */
+  const exclGrps = settings.get("search.excluded-groups"),
+    excluded = new Set(settings.get("search.exclusions"));
+
+  for (const name of exclGrps) {
+    const g = groups.get(name);
+    if (g?.values) for (const v of g.values) excluded.add(v);
+  }
+
+  const matchExName = settings.get("match.exact-name"),
+    matchExTags = settings.get("match.exact-tags"),
+    matchExID = settings.get("match.exact-id");
   const all = [
     ...symbols
       .entries()
       .map(([id, sym]) => {
+        if (excluded.has(id)) return;
         const name = sym.name.toLowerCase();
-        if (term === id)
+        if (matchExID && term === id)
           return [
             id,
             {
@@ -38,8 +54,8 @@ function update() {
               m: 3,
             },
           ];
-        if (term === name) return [id, { n: sym.name, s: sym.symbol, r: 1001, t: [], m: 2 }];
-        if (sym.tags.includes(term)) {
+        if (matchExName && term === name) return [id, { n: sym.name, s: sym.symbol, r: 1001, t: [], m: 2 }];
+        if (matchExTags && sym.tags.includes(term)) {
           return [
             id,
             {
@@ -90,7 +106,7 @@ function update() {
   const maxrel = mostRelevant ? mostRelevant[1].r : 0;
   // console.log("max is", mostRelevant, maxrel);
 
-  const minrel = all.length > 10 ? maxrel - 5 : -Infinity;
+  const minrel = all.length > 10 ? maxrel - settings.get("search.relevance-range") : -Infinity;
   // console.log("minimum rel to show is", minrel);
 
   if (all.length === 0) {
@@ -103,7 +119,10 @@ function update() {
   }
 
   const norm = [],
-    favs = [];
+    favs = [],
+    normEnabled = !settings.get("favourites.hide-others"),
+    favEnabled = settings.get("feature.favourites"),
+    viewEnabled = settings.get("feature.viewer");
   let more = 0;
   for (const entry of all) {
     // console.log(entry, "has rel", entry?.[1]?.r);
@@ -113,18 +132,25 @@ function update() {
       more++;
       continue;
     }
-    if (favourites.isFav(entry[0])) {
+    if (favEnabled && favourites.isFav(entry[0])) {
       favs.push(entry);
-    } else norm.push(entry);
+    } else if (normEnabled) norm.push(entry);
   }
 
   // sort descending by relevance
-  norm.sort(relComparer);
+  if (normEnabled) norm.sort(relComparer);
 
   if (favs.length === 0) {
-    // Special case for no favourites
-    for (const entry of norm) {
-      createResult(entry[0], entry[1], term, false);
+    // Special case for no (or disabled) favourites
+    if (normEnabled)
+      for (const entry of norm) {
+        createResult(entry[0], entry[1], term, favEnabled ? false : null, viewEnabled);
+      }
+    else {
+      const p = document.createElement("div");
+      p.classList.add("placeholder");
+      p.textContent = "No results (disable 'Favourites Only'?)";
+      list.append(p);
     }
   } else {
     // separate favourites from others
@@ -135,35 +161,30 @@ function update() {
     fvs.textContent = "★ Favourites:";
     list.append(fvs);
     for (const entry of favs) {
-      createResult(entry[0], entry[1], term, true);
+      createResult(entry[0], entry[1], term, true, viewEnabled);
     }
-    const nrm = document.createElement("div");
-    nrm.classList.add("search-list-sep");
-    nrm.textContent = "☆ Other Symbols:";
-    list.append(nrm);
-    for (const entry of norm) {
-      createResult(entry[0], entry[1], term, false);
+    if (normEnabled) {
+      const nrm = document.createElement("div");
+      nrm.classList.add("search-list-sep");
+      nrm.textContent = "☆ Other Symbols:";
+      list.append(nrm);
+      for (const entry of norm) {
+        createResult(entry[0], entry[1], term, false, viewEnabled);
+      }
     }
   }
   if (more > 0) {
     const p = document.createElement("div");
-    p.classList.add("search-item");
-    p.textContent = "And " + more + " more...";
+    p.classList.add("search-list-sep");
+    p.textContent = normEnabled ? `And ${more} more...` : `${all.length - favs.length} non-favourites`;
 
     list.append(p);
   }
 }
 const relComparer = ([, a], [, b]) => b.r - a.r;
-function createResult(id, sym, term, fav) {
+function createResult(id, sym, term, fav, viewer) {
   const p = document.createElement("div");
   p.classList.add("search-item");
-
-  // expander
-  const expander = document.createElement("a");
-  expander.classList.add("search-item-expand", "unf");
-  expander.textContent = "👁";
-  expander.href = "./viewer.html#" + id;
-  expander.title = "Open in Large Viewer";
 
   // copy indicator
   const copier = document.createElement("button");
@@ -221,6 +242,7 @@ function createResult(id, sym, term, fav) {
   // relevance.textContent = sym.r;
   // p.append(relevance);
 
+  // separators
   const sep = document.createElement("span");
   sep.classList.add("search-item-sep");
 
@@ -229,6 +251,7 @@ function createResult(id, sym, term, fav) {
 
   p.append(copier, csep, symdis, nameplate, resulttag, sep);
 
+  // special matches
   if (sym.m) {
     const star = document.createElement("span");
     star.classList.add("search-item-match");
@@ -254,30 +277,43 @@ function createResult(id, sym, term, fav) {
     p.append(star);
   }
 
-  const fsep = document.createElement("span");
-  fsep.classList.add("search-item-fav-sep");
-
-  const fstar = document.createElement("span");
-  fstar.classList.add("search-item-favourite");
-  if (fav) {
-    fstar.textContent = "★";
-    fstar.title = "Remove from Favourites";
-    fstar.onclick = () => {
-      favourites.unfav(id);
-      fstar.textContent = "☆";
-      update();
-    };
-  } else {
-    fstar.textContent = "☆";
-    fstar.title = "Add as Favourite";
-    fstar.onclick = () => {
-      favourites.fav(id);
-      fstar.textContent = "★";
-      update();
-    };
+  // large viewer link
+  if (viewer) {
+    const view = document.createElement("a");
+    view.classList.add("search-item-expand", "unf");
+    view.textContent = "👁";
+    view.href = "./viewer.html#" + id;
+    view.title = "Open in Large Viewer";
+    p.append(view);
   }
 
-  p.append(expander, fsep, fstar);
+  // favourite button
+  if (fav !== null) {
+    const fsep = document.createElement("span");
+    fsep.classList.add("search-item-fav-sep");
+
+    const fstar = document.createElement("span");
+    fstar.classList.add("search-item-favourite");
+    if (fav) {
+      fstar.textContent = "★";
+      fstar.title = "Remove from Favourites";
+      fstar.onclick = () => {
+        favourites.unfav(id);
+        fstar.textContent = "☆";
+        update();
+      };
+    } else {
+      fstar.textContent = "☆";
+      fstar.title = "Add as Favourite";
+      fstar.onclick = () => {
+        favourites.fav(id);
+        fstar.textContent = "★";
+        update();
+      };
+    }
+
+    p.append(fsep, fstar);
+  }
 
   list.appendChild(p);
 }
