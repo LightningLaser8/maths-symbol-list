@@ -43,6 +43,7 @@ for (const [id, set] of settings) {
   switch (set.type) {
     case "string":
       si.type = "text";
+      si.placeholder = "(empty string)"
       si.onchange = () => {
         updateSaveStatus(set, id, si.value);
         updateUnsavedBanner();
@@ -51,6 +52,7 @@ for (const [id, set] of settings) {
       break;
     case "string[]":
       si.type = "text";
+      si.placeholder = "(no elements)"
       si.onchange = () => {
         updateSaveStatus(set, id, str2arr(si.value));
         updateUnsavedBanner();

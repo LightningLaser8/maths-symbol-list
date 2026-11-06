@@ -122,13 +122,16 @@ function update() {
     favs = [],
     normEnabled = !settings.get("favourites.hide-others"),
     favEnabled = settings.get("feature.favourites"),
-    viewEnabled = settings.get("feature.viewer");
-  let more = 0;
+    viewEnabled = settings.get("feature.viewer"),
+    limiter = settings.get("search.relevance-range") !== -1,
+    max = term ? settings.get("search.max-results") : -1;
+  let more = 0,
+    count = 0;
   for (const entry of all) {
     // console.log(entry, "has rel", entry?.[1]?.r);
-
     if (!entry) continue;
-    if (entry[1].r < minrel) {
+
+    if (limiter && entry[1].r < minrel) {
       more++;
       continue;
     }
@@ -144,12 +147,20 @@ function update() {
     // Special case for no (or disabled) favourites
     if (normEnabled)
       for (const entry of norm) {
+        if (max !== -1) {
+          if (count < max) {
+            count++;
+          } else {
+            more++;
+            continue;
+          }
+        }
         createResult(entry[0], entry[1], term, favEnabled ? false : null, viewEnabled);
       }
     else {
       const p = document.createElement("div");
       p.classList.add("placeholder");
-      p.textContent = "No results (disable 'Favourites Only'?)";
+      p.textContent = "No results (disable 'Favourites: Hide Others'?)";
       list.append(p);
     }
   } else {
@@ -161,16 +172,32 @@ function update() {
     fvs.textContent = "★ Favourites:";
     list.append(fvs);
     for (const entry of favs) {
+      if (max !== -1) {
+        if (count < max) {
+          count++;
+        } else {
+          more++;
+          continue;
+        }
+      }
       createResult(entry[0], entry[1], term, true, viewEnabled);
     }
-    if (normEnabled) {
-      const nrm = document.createElement("div");
-      nrm.classList.add("search-list-sep");
-      nrm.textContent = "☆ Other Symbols:";
-      list.append(nrm);
-      for (const entry of norm) {
-        createResult(entry[0], entry[1], term, false, viewEnabled);
+  }
+  if (normEnabled) {
+    const nrm = document.createElement("div");
+    nrm.classList.add("search-list-sep");
+    nrm.textContent = "☆ Other Symbols:";
+    list.append(nrm);
+    for (const entry of norm) {
+      if (max !== -1) {
+        if (count < max) {
+          count++;
+        } else {
+          more++;
+          continue;
+        }
       }
+      createResult(entry[0], entry[1], term, false, viewEnabled);
     }
   }
   if (more > 0) {

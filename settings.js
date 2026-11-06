@@ -3,7 +3,8 @@ const defaults = [
   // search opts
   ["search.exclusions", "Comma-separated symbol IDs to be excluded from searches.", [], "string[]"],
   ["search.excluded-groups", "Comma-separated group IDs to have their content excluded from searches.", [], "string[]"],
-  ["search.relevance-range", "Maximum relevance lower than the highest relevance present in the results to still show.", 5],
+  ["search.relevance-range", "Maximum relevance lower than the highest relevance present in the results to still show. Basically, bigger number means more results. Set to -1 to disable this limit.", 5],
+  ["search.max-results", "Maximum number of results to show. Set to -1 to disable this limit.", -1],
   // match stuff
   ["match.exact-name", "Shows symbols whose name exactly matches your search at the top.", true], //
   ["match.exact-tags", "Shows symbols which have a tag exactly matching your search at the top.", true],
