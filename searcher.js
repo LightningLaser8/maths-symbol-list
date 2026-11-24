@@ -183,7 +183,7 @@ function update() {
       createResult(entry[0], entry[1], term, true, viewEnabled);
     }
   }
-  if (normEnabled) {
+  if (normEnabled && favs.length > 0) {
     const nrm = document.createElement("div");
     nrm.classList.add("search-list-sep");
     nrm.textContent = "☆ Other Symbols:";
